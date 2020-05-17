@@ -1,7 +1,7 @@
 ---
 title: Analysing biomass and yield of two contrasting leaf architectures of wheat
 author:  Ram Ghimire
-affiliation: CSIRO Agriculture & Food/Maximising Yield Potential
+affiliation: CSIRO Agriculture & Food//Maximising Yield Potential
 photo: resources/img/ram.jpg
 
 output: DSreport::project_summary
@@ -17,24 +17,18 @@ knitr::opts_chunk$set(
 
 #Load libraries
 library(tidyverse)
-library(gapminder)
 library(kableExtra)
 ```
 
 
 # Introduction
-My name is Ram Ghimire, currently working as a Research Projects Officer in wheat leaf architecture and yield project. I have been working with data of crop physiology & agronomy for many years but have had no experience in R. Most of my data manipulation and visualisation are done in Excel. I  came to know about Data School from colleagues and got opportunity to join this year. Before joining Data School, I was used to spending a lot of time working with data mostly in excel spreadsheets. Now, I am delighted to see how amazing R can be for processing and visualisation of the field and laboratory data that I collect every year.
+My name is Ram Ghimire, currently working as a Research Projects Officer in wheat leaf architecture and yield project. I have been working with data of crop physiology & agronomy for many years but have had no experience in R. Most of my data manipulation and visualisation are done in excel. I  came to know about Data School from colleagues and got opportunity to join this year. Before joining Data School, I was used to spending a lot of time working with data mostly in excel spreadsheets. Now, I am delighted to see how amazing R can be for processing and visualisation of the field and laboratory data that I collect every year.
 
 # My Project
-Rather than yourself, this is the space to introduce your **project**. What are 
-your goals, what is your data, how do you plan to work with it? Perhaps show some example data if 
-it would help.
-
-In order to build this demo poster correctly, you will also need to have installed the `tidyverse`, 
-`gapminder`, and `kableExtra` packages.
+Canopy architecture in wheat affects light penetration & subsequent leaf photosynthesis which in turn influences solar radiation use efficiency during stem elongation and anthesis, ultimately affecting above ground biomass & crop yield. The aim of this study is to investigate if two contrasting leaf architecture influence key economic traits of spring wheat.In this experiment important traits are evaluated for canopy architecture in a study population (n=315 lines) in two replications. Those lines included both erect and floppy canopy types, were grown in 2019 wheat season in Ginninderra Experiment Station, ACT. The traits evaluated were top leaf erectness score during anthesis, anthesis biomass, days to anthesis, plant height, peduncle length and grain yield. Data collected of those triats were then cleaned & analysed in R using tidyverse and kableExtra packages.
 
 ## Preliminary results
-In this study we evaluated different components of variation for canopy architecture lines developed from Australian commercial spring wheats.
+In this study we evaluated components of variation for canopy architecture lines developed from Australian commercial spring wheats.
 
 This section will demonstrate the different visuals you might want use to show off your 
 project. Don't feel the need to go overboard, this is supposed to give a taste of the work you are
@@ -46,29 +40,47 @@ from the `kableExtra` package.
 
 **Tables**
 ```{r mytable, out.width='100%', echo = T}
-knitr::kable(head(gapminder, n = 5), format = "html", caption = "A table of data") %>% 
+ges_2019 <- read_csv("data/ges_2019.csv")
+knitr::kable(head(ges_2019, n = 5), format = "html", caption = "Measurement of key traits for erect and floppy canopy in spring wheat") %>% 
   kable_styling("striped")
 ```
 
-**Images from a file**
+**Wheat leaf architectures**
 
-![](resources/img/tidyverse.png){width=100px}
+![](resources/img/leaves.png){width=1000px}
 
 **Plots from R**
-```{r standard-plot, out.width='60%', fig.align='center', fig.height= 4, fig.width=6, fig.cap="Yet another gapminder plot"}
-gapminder %>% 
-  filter(year == 1987) %>% 
-  ggplot(aes(x = gdpPercap, y = lifeExp, colour = continent, size = pop)) +
+```{r standard-plot, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Grain yield & anthesis biomass in errect type spring wheat lines"}
+ges_2019 %>% 
+  filter(canopy_score<= 3.0,plot_yield>=mean(plot_yield)) %>% 
+  ggplot(aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
   geom_point() +
-  scale_x_log10(labels = function(b) format(b, scientific = F)) +
-  scale_size(trans = "sqrt", guide = "none") +
-  scale_color_brewer(palette = "Set1") +
-  theme_linedraw() +
-  theme(legend.position = "bottom")
+  scale_colour_manual(values = c("red", "blue"))
+
 ```
 
-Your figure and table captions are automatically numbered and can be referenced in the text
-if needed: see eg. Table \@ref(tab:mytable) and Figure \@ref(fig:standard-plot)
+```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Grain yield & anthesis biomass in floppy type spring wheat lines"}
+ges_2019 %>% 
+  filter(canopy_score> 3.0,plot_yield<mean(plot_yield)) %>% 
+  ggplot(aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
+  geom_point() +
+  scale_colour_manual(values = c("red", "green"))
+
+```
+```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Flowering days variation in erect & floppy type spring wheat lines"}
+ges_2019 %>% 
+  ggplot(aes(x = canopy_score, y = flowering_das,colour=as.factor(rep))) +
+  geom_smooth()+
+  scale_colour_manual(values = c("red", "blue"))
+
+```
+```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Plant height & peduncle length in erect & floppy type spring wheat lines"}
+ggplot(data = ges_2019, aes(x = plant_ht, y = peduncle_length)) +
+  geom_point() + 
+  geom_smooth(method = "lm")
+   
+```
+
 
 # My Digital Toolbox
 
@@ -79,8 +91,6 @@ Which of the digital skills needed for your project have you learned since start
 You can use all the usual R markdown features in writing a project summary, including lists:
 
 * R - dplyr, ggplot, ...
-* Python
-* SQL
 
 ## Favourite tool (optional)
 
@@ -109,4 +119,4 @@ knowledge to your team members? Any descriptions of the personal impact the prog
 had are welcome here as well!
 
 # My thanks to you
-Stephen Pearce, Kerensa McElroy, Luke Barret, Aswin Singaram, Natarajan, Emmett Leyne, Gilbert Permaloo and other helpers who have dedicated their time to teach us R in classroom and in group sessions, and special thanks to Kristian Goodacre for amazingly organising the whole training program & ensuring everyone is on board during this different from a normal setting. Also great thanks to my research group, Richard Richards, Anne Rae, Wolfgang Spielmeyer and Gonzalo Estavillo for allowing me opportunity to learn R through Data School FOCUS. 
+Stephen Pearce, Kerensa McElroy, Luke Barret, Aswin Singaram, Natarajan, Emmett Leyne, Gilbert Permaloo and other helpers who have dedicated their time to teach us R in classroom and in group sessions, and special thanks to Kristian Goodacre for amazingly organising the whole training program & ensuring that everyone is on board during this time different from a normal setting. Also great thanks to my research group, Richard Richards, Anne Rae, Wolfgang Spielmeyer and Gonzalo Estavillo for allowing me opportunity to learn R through Data School FOCUS. 
