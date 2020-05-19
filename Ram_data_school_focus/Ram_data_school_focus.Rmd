@@ -9,7 +9,7 @@ output: DSreport::project_summary
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   results = 'asis',
-  echo = FALSE,
+  echo = T,
   warning = FALSE,
   message = FALSE,
   fig.align = 'center'
@@ -28,17 +28,9 @@ My name is Ram Ghimire, currently working as a Research Projects Officer in whea
 Canopy architecture in wheat affects light penetration & subsequent leaf photosynthesis which in turn influences solar radiation use efficiency during stem elongation and anthesis, ultimately affecting above ground biomass & crop yield. The aim of this study is to investigate if two contrasting leaf architecture influence key economic traits of spring wheat.In this experiment important traits are evaluated for canopy architecture in a study population (n=315 lines) in two replications. Those lines included both erect and floppy canopy types, were grown in 2019 wheat season in Ginninderra Experiment Station, ACT. The traits evaluated were top leaf erectness score during anthesis, anthesis biomass, days to anthesis, plant height, peduncle length and grain yield. Data collected of those triats were then cleaned & analysed in R using tidyverse and kableExtra packages.
 
 ## Preliminary results
-In this study we evaluated components of variation for canopy architecture lines developed from Australian commercial spring wheats.
+In this study we evaluated canopy architecture lines developed from Australian commercial spring wheats. Line selection based on canopy architecture looks promising at the plot scale providing weather conditions are favourable leading up to flowering time so that the genetic potential of the upper leaves in the canopy is properly expressed. As is evident in Figure 1 and Figure 2 imporant economic traits yield and anthesis biomass respond positively to lower canopy score (erect leaf types), which corroborates previous findings by R.A Richars et al. 2019. However,because of drier growing season of 2019 in ACT leading up to flowering, the architecture score was skewed to more errect types such as lower score values in 1 to 10 scale(Table 1). Another imporatnt phenological trait of days to  flowering has shown that more spread on floppy end than that of erect end as in Figure 3. Plant height and peduncle length demonstrate linear relationship as show in Figure 4. This study is expected to help easily observed traits that could be important in breeding so as to increase canopy light interception and radiation use efficiency during the critical period of yield formation and thereby grain yield, canopy photosynthesis and crop biomass. 
 
-This section will demonstrate the different visuals you might want use to show off your 
-project. Don't feel the need to go overboard, this is supposed to give a taste of the work you are
-doing rather than being a publication ready document.
 
-To get tables formatting correctly, use `knitr::kable` to convert the table to html format. If
-you also want to have alternate row highlighting, pass the result to `kable_styling('striped')` 
-from the `kableExtra` package.
-
-**Tables**
 ```{r mytable, out.width='100%', echo = T}
 ges_2019 <- read_csv("data/ges_2019.csv")
 knitr::kable(head(ges_2019, n = 5), format = "html", caption = "Measurement of key traits for erect and floppy canopy in spring wheat") %>% 
@@ -67,14 +59,14 @@ ges_2019 %>%
   scale_colour_manual(values = c("red", "green"))
 
 ```
-```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Flowering days variation in erect & floppy type spring wheat lines"}
+```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=9, fig.cap="Flowering days variation in erect & floppy type spring wheat lines"}
 ges_2019 %>% 
   ggplot(aes(x = canopy_score, y = flowering_das,colour=as.factor(rep))) +
   geom_smooth()+
   scale_colour_manual(values = c("red", "blue"))
 
 ```
-```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Plant height & peduncle length in erect & floppy type spring wheat lines"}
+```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=8, fig.cap="Plant height & peduncle length in erect & floppy type spring wheat lines"}
 ggplot(data = ges_2019, aes(x = plant_ht, y = peduncle_length)) +
   geom_point() + 
   geom_smooth(method = "lm")
@@ -84,39 +76,28 @@ ggplot(data = ges_2019, aes(x = plant_ht, y = peduncle_length)) +
 
 # My Digital Toolbox
 
-What digital tools have you been using in your project? Do you expect that everything will be able 
-to be completed within R, or will you need to work with multiple tools to get the right result?
-Which of the digital skills needed for your project have you learned since starting Data School?
+For this project, I have been using the R version 3.6.3 and the digital tools such as tidyverse, ggplot2, kableExtra, imager, data.table and readxl.
 
-You can use all the usual R markdown features in writing a project summary, including lists:
+## Favourite tool
 
-* R - dplyr, ggplot, ...
+![](https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png){.pull-centre width=100px} ![](resources/img/tidyverse.png){.pull-centre width=100px}
 
-## Favourite tool (optional)
 
-Is there a tool/package/function in particular that you've enjoyed using? Give it a special shout out here. What about this tool makes it your favourite?
 
-![](https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png){.pull-right width=100px}
 
-No prizes for guessing mine:
+
 
 # My time went ...
 
-What parts of your project take the most time and effort? Were there any surprising challenges you
-encountered, and how did you solve them?
+Understanding of Git and Github & tidying of data were at first challenging lessons to me. I spent substantial amount of my time in training lessons, reading, and writing R code to catch up those lessons. I enjoyed practicing ggplot and gganimate lessons, a great way to visualise and quickly grasp features of data. I also learnt to write codes in R to bring data together in one clean data format that can be from which report can be reproduced at need in future.
 
 # Next steps
 
-What further steps do you wish your project could take? Or are there any new digital skills that you
-are keen to develop as a result of your involvement in the Data School?
+I will continue using R in my work so as to keep improving my R skills. I look forward to using R along with my project & team colleagues. This skill set will certainly motivate me to actively participate in developing of trial design, data manipulation, visualisation, analysis, reporting and publishing in my designated project & team.
 
 # My Data School Experience
 
-This summary is mostly about your project. However we would also like to hear about other
-parts of your Data School experience. What aspects of the program did you really enjoy? Have you
-tried applying the skills you have learned in your daily work? Have you been able to transfer this 
-knowledge to your team members? Any descriptions of the personal impact the program has 
-had are welcome here as well!
+I was met with both challenging & exciting times in data school. One of my greatest challenges was to soar up own courage to learn and adopt a new platform, mostly in WebEx and Teams platforms, to wrangle data. I also spent extra time to learn from online video lessons. I really enjoyed all data school lessons but my favourite ones are ggplot and gganimate, of which, I have also used ggplot in this presentation. I was also frequently sharing interesting visualisations of project data with my team colleagues and was greatly encouraged by feedback, a moment of instant satisfaction.
 
 # My thanks to you
-Stephen Pearce, Kerensa McElroy, Luke Barret, Aswin Singaram, Natarajan, Emmett Leyne, Gilbert Permaloo and other helpers who have dedicated their time to teach us R in classroom and in group sessions, and special thanks to Kristian Goodacre for amazingly organising the whole training program & ensuring that everyone is on board during this time different from a normal setting. Also great thanks to my research group, Richard Richards, Anne Rae, Wolfgang Spielmeyer and Gonzalo Estavillo for allowing me opportunity to learn R through Data School FOCUS. 
+Stephen Pearce, Kerensa McElroy, Luke Barret, Aswin Singaram Natarajan, Emmett Leyne, Gilbert Permaloo and other helpers who have dedicated their time to teach us R in classroom and also in group sessions. Special thanks go to Kristian Goodacre for amazingly organising the whole training program & ensuring that everyone is on board during this time different from a normal settings. Also great thanks to my research group: Richard Richards, Anne Rae, Wolfgang Spielmeyer and Gonzalo Estavillo for allowing me opportunity to learn R through Data School FOCUS. 
