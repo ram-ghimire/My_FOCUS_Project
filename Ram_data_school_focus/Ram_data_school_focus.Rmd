@@ -5,15 +5,16 @@ affiliation: CSIRO Agriculture & Food//Maximising Yield Potential
 photo: resources/img/ram.jpg
 
 output: DSreport::project_summary
+   
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   results = 'asis',
-  echo = T,
+  echo = FALSE,
   warning = FALSE,
   message = FALSE,
   fig.align = 'center'
-)
+  )
 
 #Load libraries
 library(tidyverse)
@@ -25,52 +26,71 @@ library(kableExtra)
 My name is Ram Ghimire, currently working as a Research Projects Officer in wheat leaf architecture and yield project. I have been working with data of crop physiology & agronomy for many years but have had no experience in R. Most of my data manipulation and visualisation are done in excel. I  came to know about Data School from colleagues and got opportunity to join this year. Before joining Data School, I was used to spending a lot of time working with data mostly in excel spreadsheets. Now, I am delighted to see how amazing R can be for processing and visualisation of the field and laboratory data that I collect every year.
 
 # My Project
-Canopy architecture in wheat affects light penetration & subsequent leaf photosynthesis which in turn influences solar radiation use efficiency during stem elongation and anthesis, ultimately affecting above ground biomass & crop yield. The aim of this study is to investigate if two contrasting leaf architecture influence key economic traits of spring wheat.In this experiment important traits are evaluated for canopy architecture in a study population (n=315 lines) in two replications. Those lines included both erect and floppy canopy types, were grown in 2019 wheat season in Ginninderra Experiment Station, ACT. The traits evaluated were top leaf erectness score during anthesis, anthesis biomass, days to anthesis, plant height, peduncle length and grain yield. Data collected of those triats were then cleaned & analysed in R using tidyverse and kableExtra packages.
+Canopy architecture in wheat affects light penetration & subsequent leaf photosynthesis which in turn influences solar radiation use efficiency during stem elongation and anthesis, ultimately affecting above ground biomass & crop yield. The aim of this study is to investigate if two contrasting leaf architecture influence key economic traits of spring wheat.In this experiment important traits are evaluated for canopy architecture in a study population (n=315 lines) in two replications. Those lines, including erect and floppy canopy types of varying degrees, were grown in 2019 wheat season in Ginninderra Experiment Station, ACT. The traits evaluated were upper leaf canopy score during anthesis, anthesis biomass, days to anthesis, plant height, peduncle length and grain yield. Data collected of those triats were then cleaned & analysed in R using tidyverse packages.
 
 ## Preliminary results
-In this study we evaluated canopy architecture lines developed from Australian commercial spring wheats. Line selection based on canopy architecture looks promising at the plot scale providing weather conditions are favourable leading up to flowering time so that the genetic potential of the upper leaves in the canopy is properly expressed. As is evident in Figure 1 and Figure 2 imporant economic traits yield and anthesis biomass respond positively to lower canopy score (erect leaf types), which corroborates previous findings by R.A Richars et al. 2019. However,because of drier growing season of 2019 in ACT leading up to flowering, the architecture score was skewed to more errect types such as lower score values in 1 to 10 scale(Table 1). Another imporatnt phenological trait of days to  flowering has shown that more spread on floppy end than that of erect end as in Figure 3. Plant height and peduncle length demonstrate linear relationship as show in Figure 4. This study is expected to help easily observed traits that could be important in breeding so as to increase canopy light interception and radiation use efficiency during the critical period of yield formation and thereby grain yield, canopy photosynthesis and crop biomass. 
+In this study we evaluated canopy architecture lines developed from Australian spring wheats. Line selection based on canopy architecture looks promising at the plot scale providing weather conditions are favourable leading up to flowering time so that the genetic potential of the upper leaves in the canopy is properly expressed. As is evident in Figure 1 and Figure 2 imporant economic traits: yield and anthesis biomass, respond positively to lower canopy score (erect leaf types), which corroborates previous findings by R.A Richards et al. 2019. However,because of drier growing season of 2019 in ACT leading up to flowering, the architecture score was skewed to more erect types such as lower score values in 1 to 10 scale(Table 1). Another imporatnt phenological trait of days to  flowering has shown that more spread on erect end than that of floppy end as in Figure 3. Plant height and peduncle length demonstrate linear relationship as shown in Figure 4. This study is expected to help selection in easily observed traits that could be important in breeding so as to increase canopy light interception and radiation use efficiency during the critical period of yield formation. 
 
 
-```{r mytable, out.width='100%', echo = T}
-ges_2019 <- read_csv("data/ges_2019.csv")
-knitr::kable(head(ges_2019, n = 5), format = "html", caption = "Measurement of key traits for erect and floppy canopy in spring wheat") %>% 
-  kable_styling("striped")
+```{r mytable, out.width='100%', echo = F}
+my_ges_2019 <- read_csv("data/my_ges_2019.csv") %>% 
+rename('canopy score'= canopy_score,'days to flowering'=flowering_das,'plant height (cm)'=plant_ht,'anthesis biomass (g)'=anthesis_biomass,"peduncle length (cm)"=peduncle_length,'yield (g/m^2)'=plot_yield)
+
+knitr::kable(sample_n(my_ges_2019, size = 5), format = "html", caption = "Measurement of key traits for erect and floppy canopy in spring wheat") %>% kable_styling("striped")
 ```
 
-**Wheat leaf architectures**
+**Contrasting wheat leaf architectures**
 
 ![](resources/img/leaves.png){width=1000px}
 
 **Plots from R**
 ```{r standard-plot, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Grain yield & anthesis biomass in errect type spring wheat lines"}
-ges_2019 %>% 
-  filter(canopy_score<= 3.0,plot_yield>=mean(plot_yield)) %>% 
-  ggplot(aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
+my_ges_2019 <- read_csv("data/my_ges_2019.csv")
+my_ges_2019 %>%
+  filter(canopy_score <= 3.0,plot_yield>=mean(plot_yield)) 
+  my_2019 <- ggplot(data=my_ges_2019,mapping = aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
   geom_point() +
-  scale_colour_manual(values = c("red", "blue"))
-
+  scale_colour_manual(values = c("red","blue"))
+  my_2019 +
+    labs(x="Canopy Score",
+         y="Yield (g/m^2)")+
+    geom_point(alpha=0.2)
 ```
 
 ```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=10, fig.cap="Grain yield & anthesis biomass in floppy type spring wheat lines"}
-ges_2019 %>% 
-  filter(canopy_score> 3.0,plot_yield<mean(plot_yield)) %>% 
-  ggplot(aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
+my_ges_2019 <- read_csv("data/my_ges_2019.csv")
+my_ges_2019 %>% 
+  filter(canopy_score> 3.0,plot_yield<mean(plot_yield))  
+  my_2019 <- ggplot(data=my_ges_2019,mapping=aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass)) +
   geom_point() +
   scale_colour_manual(values = c("red", "green"))
+  my_2019+
+    labs(x="Canopy Score",
+         y="Yield (g/m^2)")+
+    geom_point(alpha=0.2)
 
 ```
 ```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=9, fig.cap="Flowering days variation in erect & floppy type spring wheat lines"}
-ges_2019 %>% 
-  ggplot(aes(x = canopy_score, y = flowering_das,colour=as.factor(rep))) +
-  geom_smooth()+
-  scale_colour_manual(values = c("red", "blue"))
+my_ges_2019 <- read_csv("data/my_ges_2019.csv")
 
+  my_2019 <- ggplot(data=my_ges_2019,mapping=aes(x = canopy_score, y = flowering_das,color =as.factor(rep))) +
+  geom_point()+
+  scale_colour_manual(values = c("red", "blue"))
+  my_2019+
+  labs(x="Canopy Score",
+         y="Days to flowering")+
+    geom_point(alpha=0.2)
+  
 ```
-```{r, out.width='60%', fig.align='center', fig.height= 5, fig.width=8, fig.cap="Plant height & peduncle length in erect & floppy type spring wheat lines"}
-ggplot(data = ges_2019, aes(x = plant_ht, y = peduncle_length)) +
-  geom_point() + 
-  geom_smooth(method = "lm")
-   
+```{r, out.width='60%', fig.align='center', fig.height= 4, fig.width=8, fig.cap="Plant height & peduncle length in erect & floppy type spring wheat lines"}
+my_2019 <- ggplot(data = my_ges_2019, aes(x = plant_ht, y = peduncle_length,color =as.factor(rep))) +
+  geom_point(alpha=0.5) + 
+   scale_colour_manual(values = c("red", "blue"))+
+  geom_smooth(method = "lm",size=0.5,se=F)
+   my_2019+
+  labs(x="Plant Height (cm)",
+         y="Peduncle Length (cm)")+
+    geom_point(alpha=0.2)
 ```
 
 
@@ -78,9 +98,9 @@ ggplot(data = ges_2019, aes(x = plant_ht, y = peduncle_length)) +
 
 For this project, I have been using the R version 3.6.3 and the digital tools such as tidyverse, ggplot2, kableExtra, imager, data.table and readxl.
 
-## Favourite tool
+## Favourite tools
 
-![](https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png){.pull-centre width=100px} ![](resources/img/tidyverse.png){.pull-centre width=100px}
+![](https://raw.githubusercontent.com/tidyverse/ggplot2/master/man/figures/logo.png){.pull-centre width=100px} ![](resources/img/tidyverse.png){.pull-centre width=100px} ![](resources/img/knitr.png){.pull-centre width=100px}
 
 
 
