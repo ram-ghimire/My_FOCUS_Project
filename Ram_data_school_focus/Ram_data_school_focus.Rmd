@@ -7,6 +7,12 @@ photo: resources/img/ram.jpg
 output: DSreport::project_summary
    
 ---
+<style> 
+.column-left{float: left; width: 10%; text-align: left;}
+.column-right{float: right;width: 10%;text-align: right}
+.column-center{display: inline-block;width: 80%;text-align: center;}
+  body{text-align: justify;}
+</style>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
   results = 'asis',
@@ -54,7 +60,8 @@ my_2019 <-ggplot(data=my_ges_2019,mapping = aes(x = canopy_score, y = plot_yield
 my_2019 +
     labs(x="Canopy Score",
          y="Yield (g/m^2)",colour="replication",size="anthesis biomass")+
-    geom_point(alpha=0.2)
+    geom_point(alpha=0.2)+
+  scale_x_continuous(breaks = c(1,2,3,4, 5,6,7,8,9,10))
 ```
 
 ```{r, out.width='60%', fig.align='center', fig.height= 4, fig.width=8, fig.cap="Plant height, peduncle length & yield in erect & floppy type spring wheat lines"}
@@ -79,7 +86,8 @@ my_2019 <- ggplot(data = my_ges_2019, aes(x = canopy_score, y = flowering_das,co
    my_2019+
   labs(x="Canopy Score",
          y="Days to flowering",colour="repalication")+
-    geom_point(alpha=0.5)
+    geom_point(alpha=0.5)+
+      scale_x_continuous(breaks = c(1,2,3,4, 5,6,7,8,9,10))
 ```
 
 
