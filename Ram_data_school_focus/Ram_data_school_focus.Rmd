@@ -93,7 +93,7 @@ my_2019 <- ggplot(data = my_ges_2019, aes(x = canopy_score, y = flowering_das,co
 
 # My Digital Toolbox
 
-For this project, I have been using the R version 3.6.3 and the digital tools such as tidyverse, ggplot2, kableExtra, imager, data.table and readxl.
+For this project, I have been using the R version 3.6.3 and the digital tools such as tidyverse, ggplot2, kableExtra and imager.
 
 ## Favourite tools
 
@@ -106,7 +106,7 @@ For this project, I have been using the R version 3.6.3 and the digital tools su
 
 # My time went ...
 
-Understanding of Git and Github & tidying up data were at first challenging lessons to me. I spent substantial amount of my time in training lessons, reading, and writing R code to catch up those lessons. I enjoyed practicing ggplot and gganimate lessons, a great way to visualise and quickly grasp features of data. I also learnt to write codes in R to bring data together in one clean data format that can be from which report can be reproduced at need in future.
+Understanding of Git and Github & tidying up data were at first challenging lessons to me. I spent substantial amount of my time in catching up with those training lessons, reading, and writing R code to catch up those lessons. I enjoyed practicing ggplot and gganimate lessons, a great way to visualise and quickly grasp features of data. I also learnt to write codes in R to bring data together in one clean data format which can reproduce a report at need in future.
 
 # Next steps
 
@@ -114,7 +114,7 @@ I will continue using R in my work so as to keep improving my R skills. I look f
 
 # My Data School Experience
 
-I was met with both challenging & exciting times in data school. One of my greatest challenges was to soar up own courage to learn and adopt a new platform, mostly in WebEx and Teams platforms, to wrangle data. I also spent extra time to learn from online video lessons. I really enjoyed all data school lessons but my favourite ones are ggplot and gganimate, of which, I have also used ggplot in this presentation. I was also frequently sharing interesting visualisations of project data with my team colleagues and was greatly encouraged by feedback, a moment of instant satisfaction.
+I was met with both challenging & exciting times in data school. One of my greatest challenges was to soar up own courage to learn and adopt a new learning platform, mostly in WebEx and Teams platforms, to wrangle data. I also spent extra time to learn from online video lessons. I really enjoyed all data school lessons but my favourite ones are ggplot and gganimate, of which, I have also used ggplot in this project. I was also frequently sharing interesting visualisations of project data with my team colleagues and was greatly encouraged by feedback, a moment of instant satisfaction.
 
 # My thanks to you
 Stephen Pearce, Kerensa McElroy, Luke Barret, Aswin Singaram Natarajan, Emmett Leyne, Gilbert Permaloo and other helpers who have dedicated their time to teach us R in classroom and also in group sessions. Special thanks go to Kristian Goodacre for amazingly organising the whole training program & ensuring that everyone is on board during this time different from a normal settings. Also great thanks to my research group: Richard Richards, Anne Rae, Wolfgang Spielmeyer and Gonzalo Estavillo for allowing me opportunity to learn R through Data School FOCUS. 
