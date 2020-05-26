@@ -50,7 +50,7 @@ knitr::kable(head(my_ges_2019,n = 5), format = "html", caption = "Key traits mea
 ![](resources/img/leaves.png){width=1000px}
 
 **Plots from R**
-```{r standard-plot, out.width='60%', fig.align='center', fig.height= 4, fig.width= 9, fig.cap="Grain yield & anthesis biomass in erect & floppy wheat lines"}
+```{r standard-plot, out.width='60%', fig.align='center', fig.height= 4, fig.width= 10, fig.cap="Grain yield & anthesis biomass in erect & floppy wheat lines"}
 my_ges_2019 <- read_csv("data/my_ges_2019.csv")
 
 my_2019 <-ggplot(data=my_ges_2019,mapping = aes(x = canopy_score, y = plot_yield,color =as.factor(rep), size = anthesis_biomass))+
